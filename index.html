@@ -160,7 +160,7 @@
                 <div class="h-6 w-px bg-slate-200 dark:bg-slate-800"></div>
                 <div class="text-right hidden sm:block">
                     <p class="text-xs font-semibold text-slate-700 dark:text-slate-300" id="live-clock">00:00:00 WIB</p>
-                    <p class="text-[10px] text-slate-400" id="live-date">Senin, 24 Agu 2026</p>
+                    <p class="text-[10px] text-slate-400" id="live-date"></p>
                 </div>
             </div>
         </header>
@@ -1307,6 +1307,29 @@
             document.documentElement.classList.toggle('dark');
         }
 
+        function updateLiveDate() {
+    const now = new Date();
+
+    const options = {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    };
+
+    let date = now.toLocaleDateString('id-ID', options);
+
+    // Rapikan format: "Kamis, 27 Agu 2026"
+    date = date.replace(/\./g, '');
+
+    document.getElementById('live-date').textContent = date;
+  }
+
+  updateLiveDate();
+
+  // Update otomatis setiap 1 menit
+  setInterval(updateLiveDate, 60000);
+        
         /* LIVE CLOCK */
         function updateClock() {
             const now = new Date();
